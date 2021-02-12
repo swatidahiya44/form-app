@@ -1,0 +1,41 @@
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class = "outerForm">
+
+    <p class="h4 mb-4">Contact Us</p>
+  
+    <!-- Name -->
+    <input type="text" id = "name" formControlName = "name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" [(ngModel)] = "name" class="form-control mb-4" placeholder="Name">
+    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+      <div *ngIf="f.Name.errors.required">Name is required</div>
+    </div>
+    <input type="text" id="designation" formControlName = "designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }" class="form-control mb-4" placeholder="Designation">
+    <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+      <div *ngIf="f.designation.errors.required">Designation is required</div>
+    </div>
+    <input type="text" id="companyName" formControlName = "companyName" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" [(ngModel)] ="companyName" class="form-control mb-4" placeholder="Company Name">
+    <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+      <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+    </div>
+    <input type="tel" id= "mobileNumber" formControlName = "mobileNumber" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber.errors }" [(ngModel)] = "mobileNumber" class="form-control mb-4" placeholder="Phone Number">
+    <div *ngIf="submitted && f.mobileNumber.invalid" class="invalid-feedback">
+      <div *ngIf="f.mobileNumber.errors.required">Phone Number is required.</div>
+      <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Phone Number.</div>
+    </div>
+  
+    <!-- Email -->
+    <input type="email" id="email" formControlName = "email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)] = "email" class="form-control mb-4" placeholder="E-mail">
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email is required</div>
+      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+    </div>
+    <!-- Comment -->
+    <div class="form-group">
+      <textarea class="form-control rounded-0" id="exampleFormControlTextarea" rows="3" placeholder="Comments"></textarea>
+    </div>
+  
+  
+    <!-- Send button -->
+    <button mdbBtn color="info" block="true" type="submit">Send</button>
+  
+  </form>
+  
