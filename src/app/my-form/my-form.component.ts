@@ -1,6 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-form',
@@ -10,14 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MyFormComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
-  name : any;
-  designation : any;
-  companyName : any;
-  email : any;
-  mobileNumber: any;
+  feedback:any = {};
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private httpClient : HttpClient) {
+    
+   }
 
 
   ngOnInit(): void {
@@ -38,8 +37,11 @@ export class MyFormComponent implements OnInit {
     if (this.registerForm.invalid) {
         return;
     }
-    console.log(this.name);
-    console.log(this.mobileNumber);
+    console.log(this.feedback.name);
+    console.log(this.feedback.mobileNumber);
+    this.httpClient.post("localhost:3080/feedback", this.feedback).subscribe((resp)=>{
+      console.log(resp)
+    });
 
 
 
