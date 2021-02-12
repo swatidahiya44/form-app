@@ -39,7 +39,7 @@ export class MyFormComponent implements OnInit {
     }
     console.log(this.feedback.name);
     console.log(this.feedback.mobileNumber);
-    this.httpClient.post("localhost:3080/feedback", this.feedback).subscribe((resp)=>{
+    this.httpClient.post("/api/feedback", this.feedback).subscribe((resp)=>{
       console.log(resp)
     });
 
