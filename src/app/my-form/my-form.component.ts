@@ -2,6 +2,8 @@ import { NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { FormService } from '../form.service';
+
 
 @Component({
   selector: 'app-my-form',
@@ -14,7 +16,8 @@ export class MyFormComponent implements OnInit {
   feedback:any = {};
 
 
-  constructor(private formBuilder: FormBuilder, private httpClient : HttpClient) {
+
+  constructor(private formBuilder: FormBuilder, private httpClient : HttpClient, private formService: FormService) {
     
    }
 
@@ -39,9 +42,14 @@ export class MyFormComponent implements OnInit {
     }
     console.log(this.feedback.name);
     console.log(this.feedback.mobileNumber);
-    this.httpClient.post("/api/feedback", this.feedback).subscribe((resp)=>{
+    //this.httpClient.post("/api/feedback", this.feedback).subscribe((resp)=>{
+    //  console.log(resp)
+    //});
+
+    this.formService.postFeedback(this.feedback).subscribe((resp) => {
       console.log(resp)
-    });
+      alert("feedback has been posted")
+    })
 
 
 
