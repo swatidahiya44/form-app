@@ -2,7 +2,9 @@ import { NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { FormService } from '../form.service';
+//import { FormService } from '../form.service';
+import { Feedback } from 'src/app/models/feedback.model';
+import { FormService } from 'src/app/controllers/form.service';
 
 
 @Component({
@@ -13,10 +15,7 @@ import { FormService } from '../form.service';
 export class MyFormComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
-  feedback:any = {};
-
-
-
+  feedback: Feedback;
   constructor(private formBuilder: FormBuilder, private httpClient : HttpClient, private formService: FormService) {
     
    }
@@ -28,7 +27,8 @@ export class MyFormComponent implements OnInit {
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      mobileNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]]
+      mobileNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      comment: ['', []]
   });
   }
   
@@ -40,15 +40,16 @@ export class MyFormComponent implements OnInit {
     if (this.registerForm.invalid) {
         return;
     }
-    console.log(this.feedback.name);
-    console.log(this.feedback.mobileNumber);
+    
+    //console.log(this.feedback.mobileNumber);
     //this.httpClient.post("/api/feedback", this.feedback).subscribe((resp)=>{
     //  console.log(resp)
     //});
+    console.log(this.feedback);
 
     this.formService.postFeedback(this.feedback).subscribe((resp) => {
-      console.log(resp)
-      alert("feedback has been posted")
+      console.log(resp);
+      alert("feedback has been posted");
     })
 
 

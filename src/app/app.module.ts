@@ -6,9 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MyFormComponent } from './my-form/my-form.component';
+//import { MyFormComponent } from './my-form/my-form.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormService } from './form.service';
+import { FormService } from './controllers/form.service';
+import { MyFormComponent } from './view/my-form/my-form.component';
+//import { FormService } from './form.service';
 
 @NgModule({
   declarations: [
