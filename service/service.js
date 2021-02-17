@@ -3,11 +3,10 @@ const app = express(),
       bodyParser = require("body-parser");
       port = 3080;
 
-
-
 var cors = require('cors')
 app.use(cors())
-
+const feedbackService = require('/data/form-app/service/feedback/feedback.service.js');
+app.use('/feedback', require('/data/form-app/service/feedback/feedback.controller.js'));
 var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost:27017/form-app", () =>
 {
@@ -22,6 +21,9 @@ app.post('/api/feedback', (req,res) => {
     res.send(req.body);
 });
 
+//app.get("/api/feedback", (req, res) => {
+//  res.send(req.body);
+//});
 
 app.listen(port, () => {
     console.log(`Server listening on the port::${port}`);

@@ -12,13 +12,21 @@ export class MyFormComponent {
   constructor(private formService: FormService) {}
   
   onSubmit() {
-    console.log(this.feedback);
+    //console.log(this.feedback);
     this.formService.postFeedback(this.feedback).subscribe((resp) => {
       console.log(resp);
       alert("feedback has been posted");
     }, (error)=> {
       alert("Not able to save!!")
     });
+    //this.formService.getFeedback().subscribe((resp) => {
+    //  console.log(resp);
+    //  alert("feedback has been posted");
+    //}, (error)=> {
+    //  alert("Not able to save!!")
+    //});
+
+    
   }
 
 }
