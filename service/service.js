@@ -1,29 +1,21 @@
 const express = require('express');
-const app = express(),
-      bodyParser = require("body-parser");
-      port = 3080;
+const {post} = require('./feedback/feedback.controller');
+const bodyParser = require("body-parser");
+const cors = require('cors')
+const mongoose = require('mongoose');
 
-var cors = require('cors')
+const port = 3080;
+const app = express();
 app.use(cors())
-const feedbackService = require('/data/form-app/service/feedback/feedback.service.js');
-app.use('/feedback', require('/data/form-app/service/feedback/feedback.controller.js'));
-var mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/form-app", () =>
-{
-  console.log("App works fine!!!");
-});
 app.use(bodyParser.json());
-const db = mongoose.connection;
+mongoose.connect("mongodb://localhost:27017/form-app");
 
 
-app.post('/api/feedback', (req,res) => {
-    db.collection('feedback').insertOne(req.body);
-    res.send(req.body);
-});
+const catchErrors = action => (req, res, next) => action(req, res).catch(next)
 
-//app.get("/api/feedback", (req, res) => {
-//  res.send(req.body);
-//});
+//controllers
+app.post('/api/feedback', catchErrors(post));
+//app.get('/api/feedback', get);
 
 app.listen(port, () => {
     console.log(`Server listening on the port::${port}`);
